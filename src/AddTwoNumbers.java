@@ -9,7 +9,7 @@ class ListNode {
  */
 public class AddTwoNumbers {
 
-    private static void main(String[] args) {
+    public static void main(String[] args) {
         String line = "[9]";
         ListNode l1 = stringToListNode(line);
         line = "[1,9,9,9,9,9,9,9,9,9]";
@@ -17,11 +17,11 @@ public class AddTwoNumbers {
 
         ListNode ret1 = addTwoNumbers1(l1, l2);
         String out1 = listNodeToString(ret1);
-        System.out.print(out1);
+        System.out.println(out1);
 
         ListNode ret2 = addTwoNumbers2(l1, l2);
         String out2 = listNodeToString(ret2);
-        System.out.print(out2);
+        System.out.println(out2);
     }
     private static ListNode addTwoNumbers1(ListNode l1, ListNode l2) {
         ListNode result = new ListNode(0);

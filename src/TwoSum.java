@@ -22,9 +22,12 @@ public class TwoSum {
         System.out.println("[ "+ result[0] + " , " + result[1] + " ]");
     }
     /**
-     * 这个算法很骚。。
+     * 这个算法很骚。。 O(n)
      * */
     private static int[] twoSum1(int[] nums, int target) {
+        /**
+         * 获取数组中的最大值numMax和最小值numMin
+         * */
         int numMin = Integer.MAX_VALUE;
         int numMax = Integer.MIN_VALUE;
         for (int num : nums) {
@@ -35,10 +38,34 @@ public class TwoSum {
                 numMax = num;
             }
         }
+        /**
+         * 获取能存在解的范围 [x, y] ，x = targetMin ，y = targetMax
+         * target = numMin + x ，当 x <= numMax 时，才可能存在解
+         *                       若 x > numMax ，则 numMax 作为最大值才可能存在解
+         * target = numMax + y ，当 y >= numMin 时，才可能存在解
+         *                       若 y < numMax ，则 numMin 作为最小值才可能存在解
+         * */
         int max = target - numMin;
         int min = target - numMax;
         int targetMax = max > numMax ? numMax : max;
         int targetMin = min < numMin ? numMin : min;
+        /**
+         * numIndices[] 用于记录数组中在 [x, y] 范围内的元素的位置，初始为 -1
+         *              初始化 numIndices[0, targetMax - targetMin] = -1
+         *              numIndices[0] 即 targetMin 这个数在数组中的位置
+         *              numIndices[1] 即 targetMin + 1 这个数在数组中的位置
+         *              。。。。
+         *              numIndices[num[i] - targetMin] 即 num[i] 这个数在数组中的位置
+         *              。。。。
+         *              numIndices[targetMax - targetMin] 即 targetMax 这个数在数组中的位置
+         * 设 num[i] 为当前元素 ，target = num[i] + x
+         * 若 numIndices[x] != -1 ，则说明 x 是数组中的一个元素
+         *                          这个数是在数组的第 numIndices[x] 个元素
+         * 若 numIndices[x] == -1 ，则说明 x 不是数组中的一个元素
+         *                          将 num[i] 记录在 numIndices[] 中
+         *                          numIndices[num[i]] = i
+         * 判断下一个数 num[i + 1] ，target = num[i + 1] + x  。。。。
+         * */
         int[] numIndices = new int[targetMax - targetMin + 1];
         for (int i = 0; i <= numIndices.length - 1; i++) {
             numIndices[i] = -1;
